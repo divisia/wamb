@@ -42,7 +42,7 @@ class Video(AbstractContent):
 
 
 class Image(AbstractContent):
-    file = models.FileField(upload_to='images', validators=[FileExtensionValidator(['mp4', 'avi', 'mkv'])])
+    file = models.ImageField(upload_to='images')
 
 
 
