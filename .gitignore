@@ -1,0 +1,10 @@
+venv/
+static/
+.code/
+
+**/__pycache__/
+**/*.pyc
+
+*.png
+*.jpg
+*.save
