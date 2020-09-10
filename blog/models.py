@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
@@ -27,25 +28,28 @@ class Podcast(AbstractContent):
 
 
 
-def get_upload_path(instance, filename):
-        return f'podcasts/{instance.podcast.slug}/{instance.slug}/'
+def podcast_episode_path(instance, filename):
+    return os.path.join('podcasts', instance.podcast.slug, instance.slug, filename)
 
 class PodcastEpisode(AbstractContent):
     speakers = models.ManyToManyField(User, related_name='podcast_episodes')
     podcast = models.ForeignKey(Podcast, on_delete=models.CASCADE, related_name='episodes')
-    file = models.FileField(upload_to=get_upload_path, validators=[FileExtensionValidator(['mp3', 'aac', 'wav'])])    
+    file = models.FileField(upload_to=podcast_episode_path, validators=[FileExtensionValidator(['mp3', 'aac', 'wav'])])    
 
 
 class Video(AbstractContent):
-    pass
+    file = models.FileField(upload_to='videos', validators=[FileExtensionValidator(['mp4', 'avi', 'mkv'])])
 
 
 class Image(AbstractContent):
-    pass
+    file = models.FileField(upload_to='images', validators=[FileExtensionValidator(['mp4', 'avi', 'mkv'])])
+
 
 
 class Entry(AbstractContent):
-    pass
+    body = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entries')
+
 
 
 

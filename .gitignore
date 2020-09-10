@@ -8,3 +8,5 @@ static/
 *.png
 *.jpg
 *.save
+
+*.sqlite3
